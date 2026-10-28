@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SGIS 럭키 룰렛 - 경품 추첨기 (오프라인 지원)</title>
+    <!-- 모듈화된 CSS 스타일시트 -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/wheel.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/modal.css">
+</head>
+<body class="presentation-mode">
+    <div class="app-container">
+        <!-- 헤더 영역 -->
+        <header class="app-header">
+            <div class="logo-area">
+                <span class="logo-icon">🎡</span>
+                <div>
+                    <h1 class="app-title"><span class="title-sgis">SGIS</span> 럭키 룰렛</h1>
+                </div>
+                <span class="app-subtitle">⚡ 오프라인 완벽 지원</span>
+            </div>
+            <div class="header-actions">
+                <button id="sound-toggle-btn" class="btn btn-secondary" title="배경 및 회전 효과음 토글">🔊 소리 ON</button>
+                <button id="qr-toggle-btn" class="btn btn-secondary" style="display: none !important;" title="카메라로 QR 코드를 인식하여 자동 스핀">📷 QR 자동 스핀</button>
+                <button id="presentation-toggle-btn" class="btn btn-secondary" title="경품 수량 및 항목 설정을 위한 관리창 열기">📋 관리창 열기</button>
+                <button id="fullscreen-toggle-btn" class="btn btn-secondary" title="전체화면 전환">⤢ 전체 화면</button>
+            </div>
+        </header>
+
+        <!-- 메인 콘텐츠 영역 -->
+        <main class="main-content">
+            <!-- 룰렛 섹션 -->
+            <section class="wheel-section">
+                <div class="wheel-banner">
+                    <h2><span class="title-sgis">SGIS</span> 럭키 룰렛</h2>
+                    <p>중앙의 <strong>SPIN</strong> 버튼을 누르거나 <strong>스페이스바(Space)</strong> 또는 <strong>엔터키(Enter)</strong>로 추첨을 시작하세요!</p>
+                </div>
+
+                <div class="wheel-wrapper">
+                    <canvas id="wheel-canvas"></canvas>
+                    <button id="spin-btn" class="center-spin-btn" title="돌리기 (스페이스바 또는 엔터키)">SPIN</button>
+                </div>
+
+                <div class="spin-tips">
+                    <span>💡 TIP:</span>
+                    <span class="kbd">Space</span>
+                    <span>또는</span>
+                    <span class="kbd">Enter</span>
+                    <span>키를 누르면 회전하며, 당첨 팝업도 바로 닫을 수 있습니다</span>
+                </div>
+            </section>
+
+            <!-- 우측 관리 패널 (기본 숨김: 상단 '📋 관리창 열기' 클릭 시 표시) -->
+            <aside class="admin-panel">
+                <!-- 탭 헤더 -->
+                <nav class="admin-tabs">
+                    <button class="tab-btn active" data-tab="tab-prizes">🎁 경품 관리</button>
+                    <button class="tab-btn" data-tab="tab-history">📜 당첨 기록</button>
+                    <button class="tab-btn" data-tab="tab-settings">⚙️ 환경 설정</button>
+                </nav>
+
+                <div class="admin-body">
+                    <!-- 1. 경품 관리 탭 -->
+                    <div id="tab-prizes" class="tab-content active">
+                        <!-- 수량 통계 바 -->
+                        <div class="stats-bar">
+                            <div class="stat-box">
+                                <span class="stat-label">남은 경품 종류</span>
+                                <span id="stat-total-prizes" class="stat-val">0 / 0종</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-label">총 잔여 수량</span>
+                                <span id="stat-total-items" class="stat-val">0개</span>
+                            </div>
+                        </div>
+
+                        <!-- 신규 경품 등록 폼 -->
+                        <div class="add-prize-form">
+                            <div class="add-prize-inputs">
+                                <input type="text" id="new-prize-name" class="input-text" placeholder="경품명 (예: ☕ 텀블러)" maxlength="20">
+                                <input type="number" id="new-prize-count" class="input-number" value="10" min="1" placeholder="수량" title="초기 수량">
+                                <input type="color" id="new-prize-color" class="input-color" value="#fde047" title="섹터 색상">
+                            </div>
+                            <!-- 추천 아이콘 빠른 선택 칩 -->
+                            <div class="quick-icons-row">
+                                <span class="quick-icons-label">추천 아이콘:</span>
+                                <div class="quick-icons-chips">
+                                    <button type="button" class="chip-icon" data-icon="🎁" title="선물상자">🎁</button>
+                                    <button type="button" class="chip-icon" data-icon="☕" title="커피/텀블러">☕</button>
+                                    <button type="button" class="chip-icon" data-icon="🎧" title="헤드셋/이어폰">🎧</button>
+                                    <button type="button" class="chip-icon" data-icon="🎒" title="가방/에코백">🎒</button>
+                                    <button type="button" class="chip-icon" data-icon="🎫" title="상품권/티켓">🎫</button>
+                                    <button type="button" class="chip-icon" data-icon="🌂" title="우산">🌂</button>
+                                    <button type="button" class="chip-icon" data-icon="🧴" title="핸드크림/보습제">🧴</button>
+                                    <button type="button" class="chip-icon" data-icon="🔑" title="키링/굿즈">🔑</button>
+                                    <button type="button" class="chip-icon" data-icon="🏷️" title="스티커/라벨">🏷️</button>
+                                </div>
+                            </div>
+                            <small class="emoji-tip">💡 TIP: 이름 맨 앞에 이모지(단축키: <b>Win + .</b>)를 넣으면 자동으로 대형 아이콘으로 분리 배치됩니다.</small>
+                            <button id="add-prize-btn" class="btn btn-primary" style="width: 100%;">+ 경품 추가</button>
+                        </div>
+
+                        <!-- 경품 선택 및 순서 정렬 툴바 -->
+                        <div class="prize-list-toolbar">
+                            <span class="toolbar-hint">📌 경품 순서 및 선택:</span>
+                            <div class="toolbar-btns">
+                                <button type="button" id="btn-preset-ratio" class="btn-tool btn-tool-accent" title="치약, 보조배터리 등 대용량과 소용량 경품의 비율을 2:3으로 자동 교차 정렬합니다">⚖️ 2:3 비율 정렬</button>
+                                <button type="button" id="btn-select-all" class="btn-tool" title="모든 경품을 돌림판에 포함합니다">✓ 전체 선택</button>
+                                <button type="button" id="btn-deselect-all" class="btn-tool" title="모든 경품을 돌림판에서 일시 제외합니다">☐ 전체 해제</button>
+                            </div>
+                        </div>
+
+                        <!-- 경품 목록 -->
+                        <div id="prize-list" class="prize-list-container">
+                            <!-- JS에서 동적 렌더링 -->
+                        </div>
+
+                        <!-- 수량 리셋 버튼 -->
+                        <div style="display: flex; gap: 8px; margin-top: auto;">
+                            <button id="reset-counts-btn" class="btn btn-secondary" style="flex: 1;" title="등록된 경품들의 수량만 초기 개수로 원복합니다">
+                                🔄 수량만 초기화
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 2. 당첨 기록 탭 -->
+                    <div id="tab-history" class="tab-content">
+                        <div class="history-actions">
+                            <button id="export-csv-btn" class="btn btn-secondary">📥 CSV 다운로드</button>
+                            <button id="clear-history-btn" class="btn btn-danger">🗑️ 기록 전체 삭제</button>
+                        </div>
+                        <div id="history-list" class="history-list-container">
+                            <!-- JS에서 동적 렌더링 -->
+                        </div>
+                    </div>
+
+                    <!-- 3. 환경 설정 탭 -->
+                    <div id="tab-settings" class="tab-content">
+                        <div class="setting-item">
+                            <label class="setting-label">회전 지속 시간: <span id="setting-duration-val">0.8초</span></label>
+                            <input type="range" id="setting-duration" class="input-range" min="0.4" max="5.0" step="0.1" value="0.8">
+                            <small style="color: #64748b; font-size: 12px; margin-top: 4px; display: block;">* 기본값: 0.8초 (1초 이내 빠른 즉시 결과 도출)</small>
+                        </div>
+
+                        <div class="setting-item">
+                            <label class="setting-label">내부 당첨 확률 방식</label>
+                            <select id="setting-prob-mode" class="select-box">
+                                <option value="proportional">남은 수량 비례 확률 (판 크기는 동일 유지)</option>
+                                <option value="equal">항목별 균등 확률 (동일 확률)</option>
+                            </select>
+                            <small style="color: #64748b; font-size: 12px; margin-top: 4px; display: block;">* 돌림판 크기는 항상 동일하게 분할되어 외부에서 남은 수량을 파악할 수 없습니다.</small>
+                        </div>
+
+                        <div class="setting-item">
+                            <label class="setting-label">돌림판 동시 노출 경품 수 제한</label>
+                            <select id="setting-max-slices" class="select-box">
+                                <option value="0">제한 없음 (선택된 모든 경품 동시 노출)</option>
+                                <option value="3">최대 3개 품목만 동시 노출</option>
+                                <option value="4">최대 4개 품목만 동시 노출</option>
+                                <option value="5" selected>최대 5개 품목만 동시 노출 (2:3 비율 추천)</option>
+                                <option value="6">최대 6개 품목만 동시 노출</option>
+                            </select>
+                            <small style="color: #64748b; font-size: 12px; margin-top: 4px; display: block;">* 많은 종류의 경품을 등록하더라도 돌림판에는 지정한 개수만큼만 깔끔하게 노출됩니다.</small>
+                        </div>
+
+                        <div class="setting-item checkbox-item">
+                            <label for="setting-auto-refill">품절 시 대기 경품 자동 보충 (리필)</label>
+                            <input type="checkbox" id="setting-auto-refill" checked>
+                        </div>
+
+                        <div class="setting-item" style="display: none !important;">
+                            <label class="setting-label">QR 자동 인식 키워드</label>
+                            <input type="text" id="setting-qr-keyword" class="input-text" value="행사참여완료" placeholder="인식할 QR 내용">
+                            <small style="color: #64748b; font-size: 12px; margin-top: 4px; display: block;">* 카메라가 이 텍스트를 담은 QR 코드를 인식하면 자동으로 룰렛을 돌립니다.</small>
+                        </div>
+
+                        <div class="setting-item checkbox-item">
+                            <label for="setting-hide-out-of-stock">품절 경품 자동 제외 (수량 0개 시)</label>
+                            <input type="checkbox" id="setting-hide-out-of-stock" checked>
+                        </div>
+
+                        <div class="setting-item checkbox-item">
+                            <label for="setting-auto-deduct">당첨 시 수량 1개 자동 차감</label>
+                            <input type="checkbox" id="setting-auto-deduct" checked>
+                        </div>
+
+                        <div class="setting-divider"></div>
+
+                        <!-- 데이터 백업 & 초기화 -->
+                        <div class="backup-actions">
+                            <button id="export-json-btn" class="btn btn-secondary">💾 데이터 백업 (JSON)</button>
+                            <label class="btn btn-secondary" style="cursor: pointer; text-align: center;">
+                                📂 백업 복원 (JSON)
+                                <input type="file" id="import-json-input" accept=".json" style="display: none;">
+                            </label>
+                            <button id="reset-defaults-btn" class="btn btn-danger" style="margin-top: 8px;">⚠️ 공장 초기화 (기본값)</button>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- 부스 모드 전용 우측 경품 안내 현황판 (수량 미표시) -->
+            <aside id="booth-showcase-panel" class="booth-showcase-panel">
+                <div class="booth-brand-header">
+                    <svg class="booth-brand-svg" viewBox="0 0 141.58 119.05" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M 52.49 104.70 L 52.49 102.73 L 47.11 102.73 L 47.11 101.24 L 59.57 101.24 L 59.57 102.73 L 54.18 102.73 L 54.18 104.70 L 58.57 104.70 L 58.57 109.43 L 56.88 109.43 L 56.88 106.18 L 47.96 106.18 L 47.96 104.70 L 52.49 104.70 M 58.54 96.11 L 58.54 100.16 L 56.85 100.16 L 56.85 97.60 L 48.08 97.60 L 48.08 96.11 L 58.54 96.11 Z" fill="#57585a" />
+                        <path d="M 67.64 107.62 L 65.97 107.62 L 65.97 98.20 L 60.91 98.20 L 60.91 96.68 L 67.64 96.68 L 67.64 107.62 M 72.30 101.10 L 74.24 101.10 L 74.24 102.79 L 72.30 102.79 L 72.30 109.40 L 70.62 109.40 L 70.62 95.84 L 72.30 95.84 L 72.30 101.10 Z" fill="#57585a" />
+                        <path d="M 77.46 106.06 L 81.67 106.06 L 81.67 107.53 L 75.78 107.53 L 75.78 96.68 L 81.51 96.68 L 81.51 98.17 L 77.46 98.17 L 77.46 106.06 M 83.01 102.70 L 80.25 102.70 L 80.25 101.19 L 83.01 101.19 L 83.01 95.86 L 84.58 95.86 L 84.58 109.32 L 83.01 109.32 L 83.01 102.70 M 86.05 95.84 L 87.66 95.84 L 87.66 109.40 L 86.05 109.40 L 86.05 95.84 Z" fill="#57585a" />
+                        <path d="M 97.73 101.53 C 97.73 102.06 97.62 102.57 97.39 103.06 C 97.17 103.55 96.87 103.97 96.50 104.32 C 96.12 104.69 95.68 104.98 95.18 105.19 C 94.68 105.40 94.14 105.51 93.56 105.51 C 92.99 105.51 92.46 105.40 91.96 105.19 C 91.46 104.98 91.02 104.69 90.64 104.32 C 90.27 103.97 89.97 103.55 89.75 103.06 C 89.52 102.57 89.41 102.06 89.41 101.53 C 89.41 100.98 89.52 100.46 89.75 99.98 C 89.97 99.49 90.27 99.07 90.64 98.71 C 91.02 98.36 91.46 98.08 91.96 97.86 C 92.46 97.65 92.99 97.54 93.56 97.54 C 94.14 97.54 94.68 97.65 95.18 97.86 C 95.68 98.08 96.12 98.36 96.50 98.71 C 96.87 99.07 97.17 99.49 97.39 99.98 C 97.62 100.46 97.73 100.98 97.73 101.53 M 96.06 101.53 C 96.06 101.18 95.99 100.86 95.86 100.56 C 95.73 100.26 95.55 100.00 95.33 99.76 C 95.09 99.55 94.83 99.38 94.53 99.24 C 94.23 99.10 93.91 99.03 93.56 99.03 C 93.23 99.03 92.91 99.10 92.60 99.24 C 92.30 99.38 92.04 99.55 91.81 99.76 C 91.59 100.00 91.41 100.26 91.27 100.56 C 91.14 100.86 91.07 101.18 91.07 101.53 C 91.07 101.87 91.14 102.19 91.27 102.49 C 91.41 102.79 91.59 103.05 91.81 103.27 C 92.04 103.50 92.30 103.68 92.60 103.81 C 92.91 103.95 93.23 104.02 93.56 104.02 C 93.91 104.02 94.23 103.95 94.53 103.81 C 94.83 103.68 95.09 103.50 95.33 103.27 C 95.55 103.05 95.73 102.79 95.86 102.49 C 95.99 102.19 96.06 101.87 96.06 101.53 M 99.90 95.84 L 101.59 95.84 L 101.59 109.40 L 99.90 109.40 L 99.90 95.84 Z" fill="#57585a" />
+                        <path d="M 111.62 107.53 L 104.40 107.53 L 104.40 96.68 L 111.47 96.68 L 111.47 98.17 L 106.07 98.17 L 106.07 101.33 L 111.44 101.33 L 111.44 102.80 L 106.07 102.80 L 106.07 106.06 L 111.62 106.06 L 111.62 107.53 M 114.10 95.84 L 115.79 95.84 L 115.79 109.40 L 114.10 109.40 L 114.10 102.79 L 112.17 102.79 L 112.17 101.28 L 114.10 101.28 L 114.10 95.84 Z" fill="#57585a" />
+                        <path d="M 121.20 97.27 L 121.20 95.83 L 123.01 95.83 L 123.01 97.27 L 126.25 97.27 L 126.25 98.71 L 122.81 98.71 L 126.52 107.04 L 125.12 107.67 L 122.11 100.80 L 119.12 107.77 L 117.69 107.14 L 121.40 98.71 L 117.82 98.71 L 117.82 97.27 L 121.20 97.27 M 128.30 102.73 L 125.68 102.73 L 125.68 101.22 L 128.30 101.22 L 128.30 95.84 L 129.99 95.84 L 129.99 109.40 L 128.30 109.40 L 128.30 102.73 Z" fill="#57585a" />
+                        <path d="M 40.44 102.63 C 40.44 94.66 33.99 88.21 26.02 88.21 C 18.06 88.21 11.60 94.66 11.60 102.63 C 11.60 110.59 18.06 117.05 26.02 117.05 C 33.99 117.05 40.44 110.59 40.44 102.63 Z" fill="#ffffff" />
+                        <path d="M 32.80 101.61 C 30.50 100.05 27.57 100.68 26.03 103.02 C 24.74 104.98 22.80 105.22 22.04 105.22 C 19.59 105.22 17.91 103.50 17.41 101.72 L 17.41 101.72 C 17.41 101.70 17.40 101.68 17.40 101.67 C 17.39 101.65 17.39 101.63 17.38 101.61 C 17.19 100.86 17.14 100.51 17.14 99.72 C 17.14 95.45 21.52 90.70 27.83 90.70 C 34.29 90.70 37.99 95.62 38.94 98.35 C 38.92 98.30 38.91 98.25 38.89 98.20 C 37.06 92.86 31.99 89.02 26.02 89.02 C 18.51 89.02 12.41 95.11 12.41 102.61 C 12.41 109.32 17.26 115.06 23.98 115.06 C 29.34 115.06 32.94 112.06 34.59 107.92 C 35.50 105.66 34.86 103.00 32.80 101.61 Z" fill="#003963" />
+                        <path d="M 39.03 98.61 C 38.23 95.95 34.51 90.70 27.83 90.70 C 21.52 90.70 17.14 95.45 17.14 99.72 C 17.14 100.51 17.19 100.86 17.38 101.61 C 17.30 101.28 17.26 100.95 17.26 100.64 C 17.26 96.20 21.71 93.12 26.29 93.12 C 32.48 93.12 37.51 98.14 37.51 104.32 C 37.51 109.17 34.71 113.37 30.65 115.39 L 30.65 115.39 C 35.89 113.50 39.62 108.49 39.62 102.61 C 39.62 101.22 39.44 99.99 39.03 98.61 Z" fill="#ed193a" />
+                        <path d="M 12.98 43.66 C 19.93 43.66 24.04 39.46 24.04 34.55 C 24.04 30.20 21.64 27.84 17.98 26.34 L 14.04 24.75 C 11.47 23.70 9.36 22.92 9.36 20.76 C 9.36 18.77 10.99 17.60 13.63 17.60 C 16.15 17.60 18.14 18.53 20.05 20.08 L 23.10 16.34 C 20.66 13.85 17.16 12.43 13.63 12.43 C 7.57 12.43 3.22 16.25 3.22 21.13 C 3.22 25.52 6.31 27.96 9.36 29.18 L 13.34 30.93 C 16.02 32.07 17.90 32.76 17.90 34.99 C 17.90 37.11 16.23 38.45 13.10 38.45 C 10.46 38.45 7.57 37.11 5.46 35.12 L 2.00 39.26 C 4.93 42.11 8.95 43.66 12.98 43.66 M 42.27 43.66 C 46.41 43.66 50.00 42.07 52.07 40.04 L 52.07 26.46 L 41.33 26.46 L 41.33 31.38 L 46.66 31.38 L 46.66 37.31 C 45.84 38.04 44.34 38.45 42.92 38.45 C 36.99 38.45 34.01 34.51 34.01 27.96 C 34.01 21.50 37.43 17.60 42.48 17.60 C 45.15 17.60 46.86 18.69 48.37 20.12 L 51.57 16.29 C 49.63 14.30 46.62 12.43 42.27 12.43 C 34.26 12.43 27.84 18.25 27.84 28.17 C 27.84 38.21 34.09 43.66 42.27 43.66 M 57.37 43.08 L 63.39 43.08 L 63.39 12.97 L 57.37 12.97 L 57.37 43.08 M 77.68 43.66 C 84.62 43.66 88.74 39.46 88.74 34.55 C 88.74 30.20 86.34 27.84 82.68 26.34 L 78.73 24.75 C 76.17 23.70 74.06 22.92 74.06 20.76 C 74.06 18.77 75.68 17.60 78.32 17.60 C 80.85 17.60 82.84 18.53 84.75 20.08 L 87.80 16.34 C 85.36 13.85 81.86 12.43 78.32 12.43 C 72.27 12.43 67.92 16.25 67.92 21.13 C 67.92 25.52 71.01 27.96 74.06 29.18 L 78.04 30.93 C 80.73 32.07 82.59 32.76 82.59 34.99 C 82.59 37.11 80.93 38.45 77.80 38.45 C 75.16 38.45 72.27 37.11 70.16 35.12 L 66.70 39.26 C 69.63 42.11 73.65 43.66 77.68 43.66 Z" fill="#1a3362" />
+                        <path d="M 98.90 2.00 C 103.48 2.00 107.19 5.71 107.19 10.29 C 107.19 14.46 101.68 20.03 99.60 22.22 C 99.22 22.59 98.58 22.59 98.21 22.22 C 96.12 20.03 90.61 14.46 90.61 10.29 C 90.61 5.71 94.32 2.00 98.90 2.00 M 98.90 4.83 C 95.89 4.83 93.44 7.28 93.44 10.29 C 93.44 13.30 95.89 15.75 98.90 15.75 C 101.91 15.75 104.36 13.30 104.36 10.29 C 104.36 7.28 101.91 4.83 98.90 4.83 Z" fill="#1a3362" />
+                        <path d="M 98.04 7.35 L 99.76 7.35 L 99.76 9.43 L 101.84 9.43 L 101.84 11.15 L 99.76 11.15 L 99.76 13.23 L 98.04 13.23 L 98.04 11.15 L 95.96 11.15 L 95.96 9.43 L 98.04 9.43 L 98.04 7.35 Z" fill="#1a3362" />
+                        <path d="M 108.06 39.76 L 109.73 39.76 L 109.73 36.41 L 109.68 34.69 C 110.57 35.43 111.52 35.83 112.41 35.83 C 114.66 35.83 116.70 33.88 116.70 30.50 C 116.70 27.45 115.32 25.47 112.77 25.47 C 111.63 25.47 110.52 26.12 109.63 26.87 L 109.59 26.87 L 109.43 25.72 L 108.06 25.72 L 108.06 39.76 M 112.13 34.43 C 111.48 34.43 110.61 34.18 109.73 33.41 L 109.73 28.21 C 110.68 27.34 111.53 26.87 112.35 26.87 C 114.25 26.87 114.97 28.32 114.97 30.52 C 114.97 32.96 113.77 34.43 112.13 34.43 M 120.55 35.83 C 121.00 35.83 121.28 35.76 121.51 35.69 L 121.28 34.41 C 121.09 34.45 121.02 34.45 120.93 34.45 C 120.68 34.45 120.47 34.25 120.47 33.74 L 120.47 21.12 L 118.80 21.12 L 118.80 33.63 C 118.80 35.03 119.31 35.83 120.55 35.83 M 126.50 35.83 C 127.85 35.83 128.83 35.13 129.76 34.05 L 129.81 34.05 L 129.94 35.60 L 131.32 35.60 L 131.32 25.72 L 129.67 25.72 L 129.67 32.72 C 128.72 33.88 128.01 34.40 126.99 34.40 C 125.68 34.40 125.14 33.61 125.14 31.78 L 125.14 25.72 L 123.47 25.72 L 123.47 31.98 C 123.47 34.51 124.41 35.83 126.50 35.83 M 136.01 35.83 C 138.33 35.83 139.58 34.51 139.58 32.91 C 139.58 31.03 138.02 30.45 136.58 29.91 C 135.48 29.49 134.46 29.12 134.46 28.19 C 134.46 27.41 135.04 26.76 136.29 26.76 C 137.17 26.76 137.86 27.14 138.53 27.63 L 139.33 26.59 C 138.58 25.97 137.49 25.47 136.28 25.47 C 134.11 25.47 132.88 26.70 132.88 28.27 C 132.88 29.96 134.37 30.61 135.75 31.12 C 136.84 31.52 138.01 32.00 138.01 33.00 C 138.01 33.85 137.37 34.54 136.06 34.54 C 134.88 34.54 134.01 34.07 133.13 33.36 L 132.33 34.47 C 133.26 35.25 134.60 35.83 136.01 35.83 Z" fill="#354251" />
+                        <path d="M 10.80 60.92 C 7.44 60.92 5.48 61.80 5.48 63.44 C 5.48 65.07 7.44 65.96 10.80 65.96 C 14.18 65.96 16.14 65.07 16.14 63.44 C 16.14 61.80 14.18 60.92 10.80 60.92 M 10.80 62.52 C 12.94 62.52 13.92 62.81 13.92 63.44 C 13.92 64.08 12.94 64.33 10.80 64.33 C 8.68 64.33 7.68 64.08 7.68 63.44 C 7.68 62.81 8.68 62.52 10.80 62.52 M 5.61 50.98 L 5.61 57.56 L 9.72 57.56 L 9.72 58.50 L 3.89 58.50 L 3.89 60.22 L 17.77 60.22 L 17.77 58.50 L 11.91 58.50 L 11.91 57.56 L 16.31 57.56 L 16.31 55.89 L 7.80 55.89 L 7.80 55.06 L 15.84 55.06 L 15.84 53.46 L 7.80 53.46 L 7.80 52.66 L 16.17 52.66 L 16.17 50.98 L 5.61 50.98 M 30.73 50.58 L 30.73 65.94 L 32.84 65.94 L 32.84 50.58 L 30.73 50.58 M 20.27 52.39 L 20.27 54.17 L 24.05 54.17 C 23.77 57.18 22.44 59.39 19.39 61.21 L 20.63 62.75 C 23.52 61.07 25.05 58.94 25.74 56.39 L 27.58 56.39 L 27.58 58.48 L 25.46 58.48 L 25.46 60.24 L 27.58 60.24 L 27.58 65.26 L 29.64 65.26 L 29.64 50.92 L 27.58 50.92 L 27.58 54.65 L 26.09 54.65 C 26.17 53.92 26.22 53.17 26.22 52.39 L 20.27 52.39 M 45.22 50.60 L 45.22 65.96 L 47.43 65.96 L 47.43 50.60 L 45.22 50.60 M 35.18 52.06 L 35.18 53.88 L 38.39 53.88 L 38.39 54.75 C 38.39 57.33 37.13 60.17 34.56 61.33 L 35.82 63.07 C 37.63 62.24 38.86 60.59 39.54 58.59 C 40.23 60.42 41.46 61.92 43.22 62.69 L 44.42 60.93 C 41.86 59.87 40.61 57.22 40.61 54.75 L 40.61 53.88 L 43.80 53.88 L 43.80 52.06 L 35.18 52.06 M 59.85 50.57 L 59.85 65.97 L 62.07 65.97 L 62.07 50.57 L 59.85 50.57 M 50.08 51.88 L 50.08 53.65 L 55.09 53.65 L 55.09 56.09 L 50.12 56.09 L 50.12 62.41 L 51.47 62.41 C 54.26 62.41 56.53 62.31 59.02 61.86 L 58.79 60.08 C 56.63 60.47 54.67 60.59 52.35 60.60 L 52.35 57.83 L 57.33 57.83 L 57.33 51.88 L 50.08 51.88 M 71.57 60.05 C 68.32 60.05 66.32 61.16 66.32 63.00 C 66.32 64.89 68.32 65.97 71.57 65.97 C 74.82 65.97 76.83 64.89 76.83 63.00 C 76.83 61.16 74.82 60.05 71.57 60.05 M 71.57 61.73 C 73.56 61.73 74.62 62.14 74.62 63.00 C 74.62 63.89 73.56 64.30 71.57 64.30 C 69.56 64.30 68.51 63.89 68.51 63.00 C 68.51 62.14 69.56 61.73 71.57 61.73 M 74.56 50.60 L 74.56 54.30 L 72.23 54.30 L 72.23 56.09 L 74.56 56.09 L 74.56 59.72 L 76.77 59.72 L 76.77 50.60 L 74.56 50.60 M 64.44 51.53 L 64.44 53.27 L 67.48 53.27 C 67.41 55.19 66.32 57.14 63.84 57.98 L 64.95 59.72 C 66.76 59.10 67.98 57.86 68.64 56.32 C 69.30 57.68 70.43 58.77 72.11 59.32 L 73.18 57.60 C 70.84 56.82 69.76 55.03 69.70 53.27 L 72.70 53.27 L 72.70 51.53 L 64.44 51.53 M 82.35 55.66 L 88.88 55.66 L 88.88 57.80 L 82.35 57.80 L 82.35 55.66 M 80.14 51.56 L 80.14 59.55 L 84.52 59.55 L 84.52 62.37 L 78.68 62.37 L 78.68 64.16 L 92.60 64.16 L 92.60 62.37 L 86.71 62.37 L 86.71 59.55 L 91.07 59.55 L 91.07 51.56 L 88.88 51.56 L 88.88 53.94 L 82.35 53.94 L 82.35 51.56 L 80.14 51.56 M 105.13 50.57 L 105.13 55.39 L 102.20 55.39 L 102.20 57.17 L 105.13 57.17 L 105.13 65.97 L 107.34 65.97 L 107.34 50.57 L 105.13 50.57 M 98.02 51.76 L 98.02 54.00 C 98.02 56.92 96.84 59.89 94.24 61.09 L 95.61 62.85 C 97.33 62.01 98.49 60.40 99.13 58.43 C 99.76 60.29 100.89 61.78 102.56 62.61 L 103.89 60.85 C 101.34 59.70 100.22 56.90 100.22 54.00 L 100.22 51.76 L 98.02 51.76 M 119.72 50.57 L 119.72 65.97 L 121.93 65.97 L 121.93 50.57 L 119.72 50.57 M 109.94 51.80 L 109.94 62.39 L 117.50 62.39 L 117.50 51.80 L 115.31 51.80 L 115.31 55.54 L 112.13 55.54 L 112.13 51.80 L 109.94 51.80 M 112.13 57.25 L 115.31 57.25 L 115.31 60.63 L 112.13 60.63 L 112.13 57.25 M 123.79 62.28 L 123.79 64.08 L 137.70 64.08 L 137.70 62.28 L 123.79 62.28 M 129.49 51.48 L 129.49 52.59 C 129.49 54.78 127.58 57.22 124.12 57.82 L 125.06 59.66 C 127.72 59.13 129.67 57.61 130.65 55.69 C 131.64 57.63 133.59 59.13 136.28 59.66 L 137.22 57.82 C 133.74 57.22 131.85 54.83 131.85 52.59 L 131.85 51.48 L 129.49 51.48 Z" fill="#1a3362" />
+                    </svg>
+                </div>
+                <div class="showcase-header">
+                    <div class="showcase-title-wrap">
+                        <span class="showcase-icon">🎁</span>
+                        <div>
+                            <h3 class="showcase-title">부스 경품 라인업</h3>
+                            <p class="showcase-subtitle">돌림판을 돌려 행운의 선물을 받아가세요!</p>
+                        </div>
+                    </div>
+                    <span class="showcase-tag">✨ 부스 안내</span>
+                </div>
+
+                <div id="booth-prize-list" class="booth-prize-list">
+                    <!-- JS 동적 렌더링 (갯수 없이 아이콘과 이름만 표시) -->
+                </div>
+            </aside>
+        </main>
+
+        <!-- 푸터 -->
+        <footer class="app-footer">
+            행사용 오프라인 경품 추첨기 &bull; Android Material Design 3
+        </footer>
+    </div>
+
+    <!-- QR 코드 카메라 스캐너 위젯 / 모달 (비활성화 및 숨김 유지) -->
+    <div id="qr-scanner-modal" class="qr-modal hidden" style="display: none !important;">
+        <div class="qr-card">
+            <div class="qr-header">
+                <div class="qr-title-box">
+                    <span class="qr-icon">📷</span>
+                    <h3>행사참여완료 QR 인식기</h3>
+                </div>
+                <button id="qr-close-btn" class="qr-close-btn" title="닫기">✕</button>
+            </div>
+            <div class="qr-body">
+                <div class="qr-video-wrapper">
+                    <video id="qr-video" playsinline></video>
+                    <div class="qr-target-box">
+                        <div class="qr-laser-line"></div>
+                        <div class="qr-corner top-left"></div>
+                        <div class="qr-corner top-right"></div>
+                        <div class="qr-corner bottom-left"></div>
+                        <div class="qr-corner bottom-right"></div>
+                    </div>
+                </div>
+                <p id="qr-status-text" class="qr-status-text">QR 코드를 카메라에 비춰주세요</p>
+                <div class="qr-action-row">
+                    <button id="qr-test-btn" class="btn btn-secondary" style="font-size: 13.5px; width: 100%;">⚡ "행사참여완료" 테스트 인식 (시뮬레이션)</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 당첨 결과 모달 -->
+    <div id="win-modal" class="modal-overlay hidden">
+        <div class="modal-card">
+            <div class="modal-crown">🎉</div>
+            <div class="modal-title">축하합니다! 당첨되었습니다!</div>
+            <div id="win-prize-name" class="modal-prize-name">-</div>
+            <div id="win-remaining-text" class="modal-remaining">-</div>
+            <div class="modal-actions">
+                <button id="win-confirm-btn" class="btn btn-accent">수령완료</button>
+                <button id="win-cancel-deduct-btn" class="btn btn-secondary" title="테스트나 오작동 시 수량을 차감하지 않고 복원 (단축키: C)">차감 취소 [C]</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 토스트 알림 컨테이너 -->
+    <div id="toast" class="toast"></div>
+
+    <!-- 모듈화된 JS 스크립트 -->
+    <script src="js/lib/jsQR.js"></script>
+    <script src="js/qr-scanner.js"></script>
+    <script src="js/audio.js"></script>
+    <script src="js/confetti.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/wheel.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

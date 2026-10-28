@@ -1,0 +1,208 @@
+/* 밝고 활기찬 축제/행사용 페스티벌 라이트 테마 (Festival Bright) */
+:root {
+    --bg-primary: #f8fafc;
+    --bg-surface: #ffffff;
+    --bg-surface-elevated: #f1f5f9;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-muted: #64748b;
+    --accent: #f59e0b;
+    --accent-hover: #d97706;
+    --accent-glow: rgba(245, 158, 11, 0.4);
+    --primary: #4f46e5;
+    --primary-hover: #4338ca;
+    --success: #059669;
+    --danger: #e11d48;
+    --danger-hover: #be123c;
+    --border: #e2e8f0;
+    --border-light: #cbd5e1;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --radius-full: 9999px;
+    --shadow-sm: 0 2px 6px rgba(15, 23, 42, 0.05);
+    --shadow-md: 0 6px 18px rgba(15, 23, 42, 0.08);
+    --shadow-lg: 0 16px 36px rgba(99, 102, 241, 0.12), 0 4px 12px rgba(15, 23, 42, 0.04);
+    --font-main: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-main);
+    /* 밝고 경쾌한 페스티벌 그라디언트 배경 */
+    background: linear-gradient(135deg, #eef2ff 0%, #fdf2f8 35%, #fffbeb 70%, #f0fdf4 100%);
+    background-attachment: fixed;
+    color: var(--text-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+    user-select: none;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* 전체 앱 레이아웃 */
+.app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding: 16px 24px;
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+/* 헤더 영역 */
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 24px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    border-radius: var(--radius-lg);
+    margin-bottom: 20px;
+    box-shadow: var(--shadow-md);
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-icon {
+    font-size: 30px;
+    filter: drop-shadow(0 2px 6px rgba(245, 158, 11, 0.4));
+    animation: bounceIcon 3s infinite ease-in-out;
+}
+
+@keyframes bounceIcon {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(12deg); }
+}
+
+.app-title {
+    font-size: 24px;
+    font-weight: 900;
+    /* 화사한 비비드 축제 타이틀 그라디언트 */
+    background: linear-gradient(135deg, #4f46e5 0%, #ec4899 50%, #f97316 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.5px;
+}
+
+.app-subtitle {
+    font-size: 13px;
+    color: #059669;
+    background: #d1fae5;
+    padding: 3px 10px;
+    border-radius: var(--radius-full);
+    font-weight: 700;
+    margin-left: 10px;
+    box-shadow: 0 1px 3px rgba(5, 150, 105, 0.15);
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* 공통 버튼 스타일 */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 9px 18px;
+    border-radius: var(--radius-md);
+    font-size: 14px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    outline: none;
+    box-shadow: var(--shadow-sm);
+}
+
+.btn:active {
+    transform: scale(0.96);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #4f46e5, #6366f1);
+    color: #ffffff;
+    border: none;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #4338ca, #4f46e5);
+    box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35);
+}
+
+.btn-accent {
+    background: linear-gradient(135deg, #f59e0b, #f97316);
+    color: #ffffff;
+    font-weight: 800;
+    border: none;
+    box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
+}
+
+.btn-accent:hover {
+    background: linear-gradient(135deg, #fbbf24, #ea580c);
+    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5);
+}
+
+.btn-secondary {
+    background: #ffffff;
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+    box-shadow: var(--shadow-md);
+}
+
+.btn-secondary.active {
+    background: linear-gradient(135deg, #0284c7, #0ea5e9);
+    border-color: #0284c7;
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+}
+
+.btn-danger {
+    background: #fee2e2;
+    color: #b91c1c;
+    border: 1px solid #fca5a5;
+}
+
+.btn-danger:hover {
+    background: #fecaca;
+    color: #991b1b;
+}
+
+/* 메인 컨텐츠 2열 분할 그리드 */
+.main-content {
+    display: grid;
+    grid-template-columns: 1fr 440px;
+    gap: 24px;
+    flex: 1;
+    align-items: start;
+    transition: grid-template-columns 0.3s ease;
+}
+
+/* 푸터 영역 */
+.app-footer {
+    text-align: center;
+    padding: 18px 0;
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 500;
+}

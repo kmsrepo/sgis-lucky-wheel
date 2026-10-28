@@ -1,0 +1,150 @@
+/* Android Material Design 3 준수 룰렛 뷰포트 영역 */
+.wheel-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 28px; /* Material 3 Extra-Large Shape */
+    padding: 32px 24px;
+    box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.08);
+    position: relative;
+    min-height: 640px;
+}
+
+.wheel-banner {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.wheel-banner h2 {
+    font-size: 26px;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: -0.5px;
+}
+
+.title-sgis {
+    color: #2563eb;
+    font-weight: 900;
+}
+
+.wheel-banner p {
+    font-size: 14.5px;
+    color: #64748b;
+    margin-top: 6px;
+    font-weight: 500;
+}
+
+.wheel-banner p strong {
+    color: #2563eb;
+    font-weight: 700;
+}
+
+/* 룰렛 캔버스 래퍼 */
+.wheel-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 580px;
+    aspect-ratio: 1 / 1;
+}
+
+#wheel-canvas {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    /* Material 3 Level 3 Elevation Drop Shadow */
+    filter: drop-shadow(0 12px 28px rgba(15, 23, 42, 0.12)) drop-shadow(0 4px 10px rgba(15, 23, 42, 0.06));
+}
+
+/* 중앙 Material 3 Large FAB 스타일 SPIN 버튼 */
+.center-spin-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    background: #2563eb; /* Material 3 Primary */
+    border: 3.5px solid #ffffff;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 800;
+    font-family: "Pretendard", "Roboto", system-ui, sans-serif;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35), 0 2px 4px rgba(0, 0, 0, 0.12);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.2s cubic-bezier(0.2, 0, 0, 1), background-color 0.2s ease;
+    user-select: none;
+    outline: none;
+    letter-spacing: 1.5px;
+}
+
+.center-spin-btn:hover:not(:disabled) {
+    transform: translate(-50%, -50%) scale(1.05);
+    background: #1d4ed8; /* Material 3 State Layer Hover */
+    box-shadow: 0 8px 24px rgba(37, 99, 235, 0.45), 0 4px 8px rgba(0, 0, 0, 0.12);
+}
+
+.center-spin-btn:active:not(:disabled) {
+    transform: translate(-50%, -50%) scale(0.96);
+    background: #1e40af;
+    box-shadow: 0 2px 6px rgba(37, 99, 235, 0.35);
+}
+
+.center-spin-btn:disabled {
+    cursor: not-allowed;
+    background: #cbd5e1;
+    border-color: #f1f5f9;
+    color: #94a3b8;
+    box-shadow: none;
+    transform: translate(-50%, -50%);
+}
+
+.center-spin-btn.spinning {
+    animation: materialPulse 1.6s infinite ease-in-out;
+}
+
+@keyframes materialPulse {
+    0%, 100% {
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+    }
+    50% {
+        box-shadow: 0 0 0 10px rgba(37, 99, 235, 0.18), 0 6px 18px rgba(37, 99, 235, 0.45);
+    }
+}
+
+/* 스핀 조작 하단 팁 (Material Tonal Surface) */
+.spin-tips {
+    margin-top: 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13.5px;
+    color: #475569;
+    background: #f8fafc;
+    padding: 8px 20px;
+    border-radius: 9999px;
+    border: 1px solid #e2e8f0;
+    font-weight: 500;
+}
+
+.kbd {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    padding: 2px 8px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #2563eb;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
