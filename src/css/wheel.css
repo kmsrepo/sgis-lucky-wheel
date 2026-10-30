@@ -15,14 +15,87 @@
 
 .wheel-banner {
     text-align: center;
-    margin-bottom: 24px;
+    margin-bottom: 22px;
 }
 
 .wheel-banner h2 {
-    font-size: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+}
+
+.wheel-title-brand-wrap {
+    display: inline-flex;
+    align-items: center;
+    gap: 22px;
+    padding: 8px 22px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+}
+
+.sgis-brand-svg {
+    height: 48px;
+    width: auto;
+    display: block;
+}
+
+.wheel-title-divider {
+    width: 1.5px;
+    height: 42px;
+    background: #e2e8f0;
+    border-radius: 1px;
+}
+
+.wheel-title-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    gap: 3px;
+}
+
+.wheel-title-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11.5px;
     font-weight: 800;
-    color: #0f172a;
+    color: #2563eb;
+    letter-spacing: 0.8px;
+}
+
+.eyebrow-sparkle {
+    font-size: 13px;
+    color: #f59e0b;
+}
+
+.wheel-title-main {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 32px;
+    font-weight: 900;
     letter-spacing: -0.5px;
+    line-height: 1.1;
+}
+
+.word-lucky {
+    color: #2563eb;
+}
+
+.word-roulette {
+    color: #0f172a;
+}
+
+.title-wheel-emoji {
+    font-size: 28px;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    display: inline-block;
+    transform-origin: center;
+    animation: bounceIcon 3s infinite ease-in-out;
 }
 
 .title-sgis {
