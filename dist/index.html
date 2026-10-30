@@ -43,9 +43,8 @@
 
 body {
     font-family: var(--font-main);
-    /* 밝고 경쾌한 페스티벌 그라디언트 배경 */
-    background: linear-gradient(135deg, #eef2ff 0%, #fdf2f8 35%, #fffbeb 70%, #f0fdf4 100%);
-    background-attachment: fixed;
+    /* 모던하고 깔끔한 뉴트럴 단색 배경 */
+    background: #f1f5f9;
     color: var(--text-primary);
     min-height: 100vh;
     overflow-x: hidden;
@@ -97,10 +96,7 @@ body {
 .app-title {
     font-size: 24px;
     font-weight: 900;
-    /* 화사한 비비드 축제 타이틀 그라디언트 */
-    background: linear-gradient(135deg, #4f46e5 0%, #ec4899 50%, #f97316 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: #0f172a;
     letter-spacing: -0.5px;
 }
 
@@ -144,27 +140,27 @@ body {
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #4f46e5, #6366f1);
+    background: #2563eb;
     color: #ffffff;
-    border: none;
+    border: 1px solid #1d4ed8;
 }
 
 .btn-primary:hover {
-    background: linear-gradient(135deg, #4338ca, #4f46e5);
-    box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35);
+    background: #1d4ed8;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
 }
 
 .btn-accent {
-    background: linear-gradient(135deg, #f59e0b, #f97316);
+    background: #2563eb;
     color: #ffffff;
     font-weight: 800;
-    border: none;
-    box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
+    border: 1px solid #1d4ed8;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
 }
 
 .btn-accent:hover {
-    background: linear-gradient(135deg, #fbbf24, #ea580c);
-    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5);
+    background: #1d4ed8;
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
 }
 
 .btn-secondary {
@@ -180,10 +176,10 @@ body {
 }
 
 .btn-secondary.active {
-    background: linear-gradient(135deg, #0284c7, #0ea5e9);
-    border-color: #0284c7;
+    background: #2563eb;
+    border-color: #1d4ed8;
     color: #ffffff;
-    box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
 }
 
 .btn-danger {
@@ -443,14 +439,14 @@ body {
     display: flex;
 }
 
-/* 통계 요약 카드 (밝고 활기찬 컬러) */
+/* 통계 요약 카드 (깔끔한 단색 카드) */
 .stats-bar {
     display: flex;
     gap: 12px;
-    background: linear-gradient(135deg, #eef2ff 0%, #ede9fe 100%);
+    background: #f8fafc;
     padding: 14px 16px;
     border-radius: var(--radius-md);
-    border: 1px solid #c7d2fe;
+    border: 1px solid #e2e8f0;
 }
 
 .stat-box {
@@ -1222,9 +1218,8 @@ body.presentation-mode .spin-tips {
 /* 부스 전용 우측 경품 라인업 쇼케이스 (수량 일체 비표시) */
 .booth-showcase-panel {
     display: none;
-    background: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.95);
+    background: #ffffff;
+    border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-lg);
     padding: 22px;
@@ -1275,10 +1270,7 @@ body.presentation-mode .spin-tips {
 .showcase-title {
     font-size: 19px;
     font-weight: 900;
-    color: var(--text-primary);
-    background: linear-gradient(135deg, #4f46e5 0%, #ec4899 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: #0f172a;
     letter-spacing: -0.3px;
 }
 
@@ -1339,9 +1331,9 @@ body.presentation-mode .spin-tips {
 }
 
 .booth-prize-card.is-active-wheel {
-    border-color: #818cf8;
-    background: linear-gradient(135deg, #ffffff 0%, #f5f3ff 100%);
-    box-shadow: 0 3px 10px rgba(99, 102, 241, 0.08);
+    border-color: #cbd5e1;
+    background: #ffffff;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05);
 }
 
 .booth-prize-card.is-active-wheel::before {
@@ -1351,7 +1343,7 @@ body.presentation-mode .spin-tips {
     left: 0;
     bottom: 0;
     width: 4px;
-    background: #4f46e5;
+    background: #2563eb;
 }
 
 .booth-prize-card.is-queued {

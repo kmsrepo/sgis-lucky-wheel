@@ -68,14 +68,14 @@
     display: flex;
 }
 
-/* 통계 요약 카드 (밝고 활기찬 컬러) */
+/* 통계 요약 카드 (깔끔한 단색 카드) */
 .stats-bar {
     display: flex;
     gap: 12px;
-    background: linear-gradient(135deg, #eef2ff 0%, #ede9fe 100%);
+    background: #f8fafc;
     padding: 14px 16px;
     border-radius: var(--radius-md);
-    border: 1px solid #c7d2fe;
+    border: 1px solid #e2e8f0;
 }
 
 .stat-box {

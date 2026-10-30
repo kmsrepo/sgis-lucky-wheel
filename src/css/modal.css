@@ -212,9 +212,8 @@ body.presentation-mode .spin-tips {
 /* 부스 전용 우측 경품 라인업 쇼케이스 (수량 일체 비표시) */
 .booth-showcase-panel {
     display: none;
-    background: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.95);
+    background: #ffffff;
+    border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-lg);
     padding: 22px;
@@ -265,10 +264,7 @@ body.presentation-mode .spin-tips {
 .showcase-title {
     font-size: 19px;
     font-weight: 900;
-    color: var(--text-primary);
-    background: linear-gradient(135deg, #4f46e5 0%, #ec4899 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: #0f172a;
     letter-spacing: -0.3px;
 }
 
@@ -329,9 +325,9 @@ body.presentation-mode .spin-tips {
 }
 
 .booth-prize-card.is-active-wheel {
-    border-color: #818cf8;
-    background: linear-gradient(135deg, #ffffff 0%, #f5f3ff 100%);
-    box-shadow: 0 3px 10px rgba(99, 102, 241, 0.08);
+    border-color: #cbd5e1;
+    background: #ffffff;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05);
 }
 
 .booth-prize-card.is-active-wheel::before {
@@ -341,7 +337,7 @@ body.presentation-mode .spin-tips {
     left: 0;
     bottom: 0;
     width: 4px;
-    background: #4f46e5;
+    background: #2563eb;
 }
 
 .booth-prize-card.is-queued {

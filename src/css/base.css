@@ -34,9 +34,8 @@
 
 body {
     font-family: var(--font-main);
-    /* 밝고 경쾌한 페스티벌 그라디언트 배경 */
-    background: linear-gradient(135deg, #eef2ff 0%, #fdf2f8 35%, #fffbeb 70%, #f0fdf4 100%);
-    background-attachment: fixed;
+    /* 모던하고 깔끔한 뉴트럴 단색 배경 */
+    background: #f1f5f9;
     color: var(--text-primary);
     min-height: 100vh;
     overflow-x: hidden;
@@ -88,10 +87,7 @@ body {
 .app-title {
     font-size: 24px;
     font-weight: 900;
-    /* 화사한 비비드 축제 타이틀 그라디언트 */
-    background: linear-gradient(135deg, #4f46e5 0%, #ec4899 50%, #f97316 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: #0f172a;
     letter-spacing: -0.5px;
 }
 
@@ -135,27 +131,27 @@ body {
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #4f46e5, #6366f1);
+    background: #2563eb;
     color: #ffffff;
-    border: none;
+    border: 1px solid #1d4ed8;
 }
 
 .btn-primary:hover {
-    background: linear-gradient(135deg, #4338ca, #4f46e5);
-    box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35);
+    background: #1d4ed8;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
 }
 
 .btn-accent {
-    background: linear-gradient(135deg, #f59e0b, #f97316);
+    background: #2563eb;
     color: #ffffff;
     font-weight: 800;
-    border: none;
-    box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
+    border: 1px solid #1d4ed8;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
 }
 
 .btn-accent:hover {
-    background: linear-gradient(135deg, #fbbf24, #ea580c);
-    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5);
+    background: #1d4ed8;
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
 }
 
 .btn-secondary {
@@ -171,10 +167,10 @@ body {
 }
 
 .btn-secondary.active {
-    background: linear-gradient(135deg, #0284c7, #0ea5e9);
-    border-color: #0284c7;
+    background: #2563eb;
+    border-color: #1d4ed8;
     color: #ffffff;
-    box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
 }
 
 .btn-danger {
